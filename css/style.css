@@ -1,0 +1,39 @@
+body{
+    background-image: url("poko.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.header{
+    color: white;
+    background-color: transparent; 
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.naslov{
+    text-align: center;  
+}
+.naslov h1{
+    font-size: 3em;
+}
+
+.forma{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50vw;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    width: 40vw;
+    margin-left: auto;
+    margin-right: auto;
+
+}
