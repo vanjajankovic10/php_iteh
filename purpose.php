@@ -5,10 +5,13 @@ if (!isset($_SESSION['current_user'])) {
     header('Location: index.php');
     exit();
 }
+
 require "dbBroker.php";
 require "Model/User.php";
-require "Model/Skincare.php";
 require "Model/Purpose.php";
+require "Model/Skincare.php";
+
+$user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
 ?>
 
 <!doctype html>
@@ -24,7 +27,6 @@ require "Model/Purpose.php";
 </head>
 
 <body>
-
     <div class="header">
         <div class="naslov">
             <h1>Make your own skincare routine</h1>
@@ -56,9 +58,33 @@ require "Model/Purpose.php";
 
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <div class="content">
+        <div class="naslov">
+            <h2 style="color: #ffffff; margin-top:20px">Purposes</h2>
+        </div>
+        <div class="forma" style="border-radius:25px">
+            <form method="post" id="formPurpose">
+                <input type="hidden" name="id" value="">
+                <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
 
+
+                <div class="input-group mb-3 container">
+                    <span class="input-group-text">Purpose</span>
+                    <select class="form-control" type="text" name="skincare_id" placeholder="Skincare" value="">
+                        <option value="0">choose skincare element</option>
+                        <?php
+                        $skincares = Skincare::getAll($conn);
+                        while (($skincare = $skincares->fetch_assoc()) != null) { ?>
+                            <option value="<?= $skincare['id'] ?>"><?= $skincare['name'] . " " . $skincare['skin_type'] ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 
 </html>
