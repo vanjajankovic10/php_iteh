@@ -60,13 +60,16 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     <button type="button" id="register" onclick="document.location.href='registration.php'" class="btn btn-primary" style="background-color: rgba(226, 178, 82, 0.8); border: none;">Create account</button>
                 </div>
             </div>
-
+            <div style="display: block; padding:13px;">
+                <p style="color: black; background-color: white;"><?= $err ?></p>
+            </div>
         </form>
         <br>
-        <div style="display: block;">
-            <p style="color: black; background-color: white;"><?= $err ?></p>
-        </div>
+
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>
