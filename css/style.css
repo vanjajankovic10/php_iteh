@@ -37,3 +37,24 @@ form{
     margin-right: auto;
 
 }
+
+.form-check.container {
+    margin-left: 30px; 
+}
+
+.nav-link:hover{
+    color: rgb(231, 177, 29);   
+ }
+
+
+.navigacija ul li a{
+     font-size: 1.5em;
+     color: rgb(255, 255, 255);
+}
+
+.nav-item{
+    
+    color: rgb(255, 255, 255);   
+ }
+
+ 
