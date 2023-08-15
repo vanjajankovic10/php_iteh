@@ -35,7 +35,6 @@ require "Model/Purpose.php";
         <div class="navigacija d-flex justify-content-between">
             <ul class="nav" id="navigacija-lista">
                 <li class="nav-item">
-<<<<<<< HEAD
                     <a class="nav-link" aria-current="page" href="home.php">Home</a>
                 </li>
                 <li class="nav-item">
@@ -46,27 +45,11 @@ require "Model/Purpose.php";
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="account.php">Account</a>
-=======
-                    <a class="nav-link" aria-current="page" href="naslovna.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="predstava.php">Skincare</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="uloga.php">Purpose</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="profil.php">Accounts</a>
->>>>>>> b527912a8884bb62f37785cef34061fd97515fd3
                 </li>
             </ul>
 
             <div class="d-flex align-items-center">
-<<<<<<< HEAD
                 <p class="m-0" style="margin-right: 20px font-size: 1.5em; color: #ffffff; font-family: 'Trebuchet MS'">Active user: <?= $_SESSION['current_user'] ?></p>
-=======
-                <p class="m-0" style="margin-right: 20px font-size: 1.5em; color: #ffffff; font-family: 'Trebuchet MS'">Prijavljen na sistem: <?= $_SESSION['current_user'] ?></p>
->>>>>>> b527912a8884bb62f37785cef34061fd97515fd3
                 <a class="btn btn-primary" href="logout.php" style="background-color: rgb(226, 178, 82, .8); border:none; margin-left: 20px;">Log out</a>
             </div>
         </div>
