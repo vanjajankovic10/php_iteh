@@ -58,7 +58,7 @@ $user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
             <h2 style="color:#ffffff">Your account</h2>
         </div>
         <div class="forma" style="border-radius:25px">
-            <form method="post" id="registrationForm">
+            <form method="post" id="registrationAccForm">
                 <input type="hidden" name="id" value="<?= $user['id'] ?>">
                 <div class="input-group mb-3 container">
                     <input class="form-control" type="text" name="username" placeholder="Username" value="<?= $user['username'] ?>">
@@ -90,8 +90,8 @@ $user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
 
                 <div class="d-grid gap-2 d-md-block" , style="margin-top:20px">
                     <div class="text-center">
-                        <button type="submit" id="register" class="btn btn-success" style="background-color: rgb(226, 178, 82, .8); border: none">Save changes</button>
-                        <button type="button" class="btn btn-danger" style="background-color: rgb(226, 178, 82, .8); border: none">Delete account</button>
+                        <button type="submit" id="updateAcc" class="btn btn-success" style="background-color: rgb(226, 178, 82, .8); border: none">Save changes</button>
+                        <button type="button" id="btnDeleteAcc" class="btn btn-danger" style="background-color: rgb(226, 178, 82, .8); border: none">Delete account</button>
                     </div>
                 </div>
             </form>
@@ -99,6 +99,7 @@ $user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/account.js"></script>
 </body>
 
 </html>
