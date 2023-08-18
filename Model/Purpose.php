@@ -29,15 +29,26 @@ class Purpose
 
     public function update(mysqli $conn)
     {
-        $query = "UPDATE purpose set name = '$this->name',brand = '$this->brand',
-                   user_id = '$this->user_id',skincare_id = '$this->skincare_id'  WHERE id=$this->id";
-        return $conn->query($query);
+        $query = "UPDATE purpose SET name = ?, brand = ?, user_id = ?, skincare_id = ? WHERE id = ?";
+
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssiii", $this->name, $this->brand, $this->user_id, $this->skincare_id, $this->id);
+
+        return $stmt->execute();
     }
+
 
     public function delete(mysqli $conn)
     {
-        $query = "DELETE FROM purpose WHERE id='$this->id'";
-        return $conn->query($query);
+        $query = "DELETE FROM purpose WHERE id=?";
+        $stmt = $conn->prepare($query);
+        if ($stmt) {
+            $stmt->bind_param("i", $this->id);
+            $result = $stmt->execute();
+            $stmt->close();
+
+            return $result;
+        }
     }
 
     public static function getAll(mysqli $conn)
@@ -59,5 +70,39 @@ class Purpose
         }
 
         return $purpose;
+    }
+
+    public static function getPurposesBySkincareID($skincare_id, $conn)
+    {
+        $query = "SELECT * FROM purpose WHERE skincare_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $skincare_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $elements = array();
+        while ($row = $result->fetch_assoc()) {
+            $elements[] = $row;
+        }
+
+        return $elements;
+    }
+
+    public static function getPurposeIdByConditions(mysqli $conn, $skincare_id)
+    {
+        $query = "SELECT id FROM purpose WHERE  skincare_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $skincare_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $ids = array();
+        while ($row = $result->fetch_assoc()) {
+            $ids[] = $row;
+        }
+        return $ids;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

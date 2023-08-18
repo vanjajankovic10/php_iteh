@@ -74,4 +74,19 @@ class User
 
         return $user;
     }
+
+    public static function getUserID($username, mysqli $conn)
+    {
+        $password = $_POST['password'];
+        $sql = "SELECT id FROM users WHERE username = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        if ($user) {
+            $user_id = $user['id'];
+        }
+    }
 }

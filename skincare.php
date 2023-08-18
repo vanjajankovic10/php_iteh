@@ -9,8 +9,10 @@ if (!isset($_SESSION['current_user'])) {
 require "dbBroker.php";
 require "Model/User.php";
 require "Model/Skincare.php";
+require "Model/Purpose.php";
 
 $user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
+$user_id = $user['id'];
 ?>
 
 <!doctype html>
@@ -66,7 +68,7 @@ $user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
         </div>
 
         <div class="forma" style="border-radius:25px">
-            <form method="post" id="formSkincareRoutine">
+            <form method="post" id="formSkincareInfo">
                 <input type="hidden" name="id" value="">
 
                 <div class="input-group mb-3 container">
@@ -78,35 +80,29 @@ $user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
                 <div class="input-group mb-3 container">
                     <input class="form-control" type="text" name="comment" placeholder="Comment" value="">
                 </div>
-                <div class="input-group mb-3 container">
-                    <span class="input-group-text" style="width: 120px;">Cleanser</span>
-                    <input class="form-control" type="text" name="cleanserBrand" placeholder="Brand" value="">
-                    <input class="form-control" type="text" name="cleanserName" placeholder="Name" value="">
-                </div>
-                <div class="input-group mb-3 container">
-                    <span class="input-group-text" style="width: 120px;">Toner</span>
-                    <input class="form-control" type="text" name="tonerBrand" placeholder="Brand" value="">
-                    <input class="form-control" type="text" name="tonerName" placeholder="Name" value="">
-                </div>
-                <div class="input-group mb-3 container">
-                    <span class="input-group-text" style="width: 120px;">Moisturizer</span>
-                    <input class="form-control" type="text" name="moistBrand" placeholder="Brand" value="">
-                    <input class="form-control" type="text" name="moistName" placeholder="Name" value="">
-                </div>
-                <div class="input-group mb-3 container">
-                    <span class="input-group-text" style="width: 120px;">Sun protection</span>
-                    <input class="form-control" type="text" name="spfBrand" placeholder="Brand" value="">
-                    <input class="form-control" type="text" name="spfName" placeholder="Name" value="">
-                </div>
-                <div class="d-grid gap-2 d-md-block" , style="margin-top:20px">
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-success" style="background-color: rgb(226, 178, 82, .8); border: none">Save</button>
-                        <button type="reset" class="btn btn-primary" style="background-color: rgb(226, 178, 82, .8); border: none">Reset form</button>
-                        <button type="button" class="btn btn-danger" style="background-color: rgb(226, 178, 82, .8); border: none">Delete</button>
-                    </div>
-                </div>
-
             </form>
+            <form method="post" id="formPurposeInfo">
+                <div class="input-group mb-3 container">
+                    <input class="form-control custom-input" type="text" name="cleanser" placeholder="Cleanser" value="">
+                </div>
+                <div class="input-group mb-3 container">
+                    <input class="form-control custom-input" type="text" name="toner" placeholder="Toner" value="">
+                </div>
+                <div class="input-group mb-3 container">
+                    <input class="form-control custom-input" type="text" name="moisturizer" placeholder="Moisturizer" value="">
+                </div>
+                <div class="input-group mb-3 container">
+                    <input class="form-control custom-input" type="text" name="spf" placeholder="Sun protection" value="">
+                </div>
+            </form>
+            <div class="d-grid gap-2 d-md-block">
+                <div class="text-center">
+                    <button type="submit" id="btnSaveSkincare" class="btn btn-success" style="background-color: rgb(226, 178, 82, .8); border: none">Save</button>
+                    <button type="reset" id="resetSkincare" class="btn btn-primary" style="background-color: rgb(226, 178, 82, .8); border: none; margin-top:20px">Reset form</button>
+                    <button type="button" id="deleteSkincare" class="btn btn-danger" style="background-color: rgb(226, 178, 82, .8); border: none; margin-top:20px">Delete</button>
+                </div>
+            </div>
+
         </div>
 
         <div class="skincareListing" style="padding: 20px;border-radius:25px">
@@ -122,24 +118,40 @@ $user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
                 </div>
             </div>
 
-            <div class="row row-cols-1 row-cols-sm-2 g-3">
+            <div class="row row-cols-1 row-cols-sm-3 g-3">
                 <?php
+
                 $skincares = Skincare::getAll($conn);
+                $purposes = Purpose::getAll($conn);
+
                 while (($skincare = $skincares->fetch_assoc()) != null) { ?>
 
                     <div class="col">
-                        <div class="card" style="background-color: rgb(255, 122, 127, .8);border-radius:25px">
+                        <div class="card" style="background-color: rgb(226, 178, 82, .8);border-radius:25px">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $skincare['name'] ?></h5>
                                 <p class="card-text"><?= $skincare['skin_type'] ?></p>
                                 <p class="card-text"><?= $skincare['comment'] ?></p>
-                                <input type="radio" name="skincareCheck" value="<?= $skincare['id'] ?>">
+
+                                <?php
+                                $skincare_purposes = [];
+                                $purposes->data_seek(0);
+                                while (($purpose = $purposes->fetch_assoc()) != null) {
+                                    if ($skincare['id'] == $purpose['skincare_id']) {
+                                        $skincare_purposes[] = $purpose;
+                                    }
+                                }
+                                foreach ($skincare_purposes as $purpose) {
+                                    echo "<p class='card-text'>" . "-" . $purpose['name'] . ": " . $purpose['brand'] . "</p>";
+                                }
+                                ?>
+
+                                <button type="submit" id="btnViewSkincare <?= $skincare['id'] ?>" class="btn btn-success btnViewSkincare" style="background-color: #91753D; border: none">View</button>
                             </div>
                         </div>
                     </div>
-
-                <?php }
-                ?>
+                <?php
+                } ?>
             </div>
 
 
@@ -148,6 +160,18 @@ $user = User::getUserUsername($_SESSION['current_user'], $conn)[0];
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var user_id_js = <?php echo json_encode($user_id); ?>;
+    </script>
+    <script src="js/skincare.js"></script>
+    <script src="js/purpose.js"></script>
+    <?php
+    if (isset($_POST['id'])) {
+        echo '<script type="text/javascript">
+                    fill(' . $_POST["id"] . ');
+                </script>';
+    }
+    ?>
 </body>
 
 </html>
