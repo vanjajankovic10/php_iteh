@@ -28,13 +28,7 @@ $user_id = $user['id'];
 </head>
 
 <body>
-    <div class="header">
-        <div class="naslov">
-            <h1>Make your own skincare routine</h1>
-        </div>
-
-    </div>
-    <div class="toolbar" style="background-color: #91753D;">
+    <div class="toolbar" style="background-color: rgb(97, 84, 58, .6);">
         <div class="navigacija d-flex justify-content-between">
             <ul class="nav" id="navigacija-lista">
                 <li class="nav-item">
@@ -54,7 +48,15 @@ $user_id = $user['id'];
             <div class="d-flex align-items-center">
                 <p class="m-0" style="margin-right: 20px font-size: 1.5em; color: #ffffff; font-family: 'Trebuchet MS'">Active user: <?= $_SESSION['current_user'] ?></p>
                 <a class="btn btn-primary" href="logout.php" style="background-color: rgb(226, 178, 82, .8); border:none; margin-left: 20px;">Log out</a>
+
             </div>
+
+        </div>
+
+    </div>
+    <div class="header">
+        <div class="naslov">
+            <h1>Make your own skincare routine</h1>
         </div>
 
     </div>
@@ -114,7 +116,7 @@ $user_id = $user['id'];
                     <input class="form-control" type="text" placeholder="search" id="search">
                 </div>
                 <div>
-                    <input class="form-control" type="button" id="sortBtn" value="sort">
+                    <input class="form-control" type="button" id="btnSearch" value="search">
                 </div>
             </div>
 
@@ -165,6 +167,7 @@ $user_id = $user['id'];
     </script>
     <script src="js/skincare.js"></script>
     <script src="js/purpose.js"></script>
+    <script src="js/search.js"></script>
     <?php
     if (isset($_POST['id'])) {
         echo '<script type="text/javascript">

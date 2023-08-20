@@ -21,13 +21,7 @@ require "Model/Purpose.php";
 </head>
 
 <body>
-    <div class="header">
-        <div class="naslov">
-            <h1>Make your own skincare routine</h1>
-        </div>
-
-    </div>
-    <div class="toolbar" style="background-color: #91753D;">
+    <div class="toolbar" style="background-color: rgb(97, 84, 58, .6);">
         <div class="navigacija d-flex justify-content-between">
             <ul class="nav" id="navigacija-lista">
                 <li class="nav-item">
@@ -47,50 +41,53 @@ require "Model/Purpose.php";
             <div class="d-flex align-items-center">
                 <p class="m-0" style="margin-right: 20px font-size: 1.5em; color: #ffffff; font-family: 'Trebuchet MS'">Active user: <?= $_SESSION['current_user'] ?></p>
                 <a class="btn btn-primary" href="logout.php" style="background-color: rgb(226, 178, 82, .8); border:none; margin-left: 20px;">Log out</a>
+
             </div>
+
         </div>
 
     </div>
+    <div class="header">
+        <div class="naslov">
+            <h1>Make your own skincare routine</h1>
+        </div>
+
+    </div>
+
 
     <div class="homeContent">
 
         <div class="d-flex p-1 justify-content-center align-items-center">
             <div>
-                <h3>Find your skincare product</h3>
+                <h2 style="color: #ffffff;">Find THE best skincare for your skin</h3>
             </div>
-            <div class="w-50 p-3">
-                <input class="form-control" type="text" placeholder="search" id="search">
-            </div>
-            <div>
-                <input class="form-control" type="button" id="sortBtn" value="sort">
-            </div>
+
         </div>
+        <main>
+            <section class="post-list">
+                <div class="post">
+                    <img src="img1.jpg" alt="Post 1">
+                    <h2 style="color:#ffffff;">Body care</h2>
+                    <p>Body hydration is often left behind, but it is equally importand as face hydration. Don't forget it tonight!</p>
+                </div>
+                <div class="post">
+                    <img src="img2.jpg" alt="Post 2">
+                    <h2>Hydration</h2>
+                    <p>We say that hydration is a MUST. Believe us. And believe in hyaluronic acid.</p>
+                </div>
+                <div class="post">
+                    <img src="img3.jpg" alt="Post 1">
+                    <h2>All products you need</h2>
+                    <p>Every thing you need. Here.</p>
+                </div>
+                <div class="post">
+                    <img src="img4.jpg" alt="Post 2">
+                    <h2>Masks and more!</h2>
+                    <p>Did someone say masks?</p>
+                </div>
+            </section>
+        </main>
 
-        <div class="row row-cols-1 row-cols-sm-2 g-3 justify-content-center">
-            <?php
-            $purposes = Purpose::getAll($conn);
-            while (($purpose = $purposes->fetch_assoc()) != null) { ?>
-
-                <form method="post" action="purpose.php" class="col">
-                    <div class="card" style="background-color: rgb(255, 122, 127, .8); width: 35vw; margin-left: auto; margin-right: auto;border-radius:25px">
-                        <div class="card-body">
-                            <input type="hidden" name="id_purpose" value="<?= $purpose['id'] ?>">
-                            <h5 class="card-title"><?= $purpose['name'] ?></h5>
-                            <?php $skincare = Skincare::getSkincare($purpose['skincare_id'], $conn)[0] ?>
-                            <p class="card-text">Skincare: <?= $skincare['name'] . " " . $skincare['skin_type'] ?></p>
-                            <p class="card-text">Brand: <?= $purpose['brand'] ?></p>
-                            <p class="card-text">Purpose: <?= $purpose['name'] ?></p>
-                            <?php $user = User::getUser($purpose['user_id'], $conn)[0] ?>
-                            <p class="card-text">User added: <?= $user['username'] ?></p>
-                            <button type="submit" class="btn btn-primary" style="background-color: rgb(11, 218, 81); border: none">View</button>
-                        </div>
-                    </div>
-                </form>
-
-
-            <?php }
-            ?>
-        </div>
     </div>
 
 

@@ -8,8 +8,8 @@ body{
 .header{
     color: white;
     background-color: transparent; 
-    padding-top: 40px;
-    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 .naslov{
@@ -57,4 +57,30 @@ form{
     color: rgb(255, 255, 255);   
  }
 
- 
+ .post-list {
+    display: flex; /* Use flexbox to align items in a row */
+    justify-content: center; /* Distribute space between items */
+}
+
+.post {
+    flex: 1; /* Distribute available space evenly among products */
+    max-width: 300px; /* Limit maximum width of each product */
+    padding: 20px;
+    border: 1px solid #8a6c40;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+    background-color: rgba(146, 113, 46);
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+}
+
+.post h2{
+    color: rgb(255, 255, 255);
+}
+.post p{
+    color: rgb(255, 255, 255);
+}
